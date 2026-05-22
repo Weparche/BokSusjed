@@ -1,5 +1,5 @@
 import { useLocation, Outlet } from 'react-router-dom';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { easeOut, pageTransition } from '../../utils/motion';
 import { BottomNav } from './BottomNav';
 import { SidebarNav } from './SidebarNav';
@@ -15,18 +15,16 @@ export function AppShell() {
         <SidebarNav />
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={reduced ? false : { opacity: 0, x: 8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduced ? undefined : { opacity: 0, x: -6 }}
-              transition={{ ...transition, ease: easeOut }}
-              className="flex min-h-0 flex-1 flex-col"
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
+          {/* Enter-only fade: AnimatePresence mode="wait" caused blank screens on route change */}
+          <motion.div
+            key={location.pathname}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ...transition, ease: easeOut }}
+            className="flex min-h-0 flex-1 flex-col"
+          >
+            <Outlet />
+          </motion.div>
           <BottomNav />
         </div>
       </div>

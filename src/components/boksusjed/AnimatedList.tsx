@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { staggerContainer, staggerItem } from '../../utils/motion';
 
 interface AnimatedListProps {
@@ -12,18 +12,15 @@ export function AnimatedList({ listKey, className, children }: AnimatedListProps
   const reduced = useReducedMotion();
 
   return (
-    <AnimatePresence mode="popLayout">
-      <motion.div
-        key={listKey}
-        className={className}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        variants={staggerContainer(!!reduced)}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      key={listKey}
+      className={className}
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer(!!reduced)}
+    >
+      {children}
+    </motion.div>
   );
 }
 

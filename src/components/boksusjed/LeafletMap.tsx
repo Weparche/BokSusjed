@@ -49,6 +49,23 @@ const pickerIcon = divIcon({
   iconAnchor: [14, 28],
 });
 
+function MapResizeHandler() {
+  const map = useMap();
+
+  useEffect(() => {
+    const invalidate = () => map.invalidateSize();
+    invalidate();
+    const t1 = window.setTimeout(invalidate, 100);
+    const t2 = window.setTimeout(invalidate, 350);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [map]);
+
+  return null;
+}
+
 function MapController({
   selectedPin,
   flyToCenter,
@@ -143,6 +160,8 @@ export function LeafletMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+
+      <MapResizeHandler />
 
       <MapController
         selectedPin={selectedPin}
