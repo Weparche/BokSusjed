@@ -1,17 +1,51 @@
 import { useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Check, Copy, Home, MapPin, Phone, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { inviteLink, profileStats } from '../../data/boksusjedMock';
+import { VALID_POSITIONING_COPY } from '../../data/boksusjedImpactMock';
 import { useBoksusjed } from '../../context/BoksusjedContext';
 import { VERIFIED_LABELS } from '../../types/boksusjed';
+import { PRIVACY_DISCLAIMER, PRIVACY_LINES } from '../../utils/moduleHelpers';
 import { easeOut, motionDuration } from '../../utils/motion';
 import { Avatar } from '../../components/boksusjed/Avatar';
 import { PageLayout } from '../../components/boksusjed/PageLayout';
 import { PageHeader } from '../../components/boksusjed/PageHeader';
 import { VerifiedBadge } from '../../components/boksusjed/VerifiedBadge';
 
+function ToggleRow({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <label className="flex cursor-pointer items-center justify-between gap-3 rounded-[var(--radius-input)] border border-rule bg-paper-2 px-4 py-3">
+      <span className="text-sm font-medium text-ink">{label}</span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+          checked ? 'bg-accent' : 'bg-paper-3'
+        }`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+            checked ? 'translate-x-5' : 'translate-x-0.5'
+          }`}
+        />
+      </button>
+    </label>
+  );
+}
+
 export function ProfilePage() {
-  const { currentUser } = useBoksusjed();
+  const { currentUser, profilePrefs, updateProfilePrefs } = useBoksusjed();
   const reduced = useReducedMotion();
   const [copied, setCopied] = useState(false);
 
@@ -36,6 +70,23 @@ export function ProfilePage() {
     { value: profileStats.comments, label: 'komentara' },
     { value: profileStats.recommendations, label: 'preporuka' },
     { value: profileStats.help, label: 'pomoći susjedima' },
+  ];
+
+  const prefToggles: { key: keyof typeof profilePrefs; label: string }[] = [
+    { key: 'crisisAlerts', label: 'Želim primati krizne obavijesti' },
+    { key: 'canHelpInCrisis', label: 'Mogu pomoći susjedima u krizi' },
+    { key: 'markHouseholdNeeds', label: 'Želim označiti potrebe kućanstva' },
+    { key: 'usesStroller', label: 'Koristim dječja kolica' },
+    { key: 'limitedMobility', label: 'Imam ograničenu pokretljivost' },
+    { key: 'privateCheckInOnly', label: 'Želim samo privatne check-in obavijesti' },
+  ];
+
+  const needToggles: { key: keyof typeof profilePrefs; label: string }[] = [
+    { key: 'livesAlone', label: 'Osoba živi sama' },
+    { key: 'needsPowerOutageHelp', label: 'Treba pomoć kod nestanka struje' },
+    { key: 'needsWaterOutageHelp', label: 'Treba pomoć kod nestanka vode' },
+    { key: 'needsStepFreeAccess', label: 'Treba pristup bez stepenica' },
+    { key: 'needsMedicineHelp', label: 'Treba pomoć s lijekovima' },
   ];
 
   return (
@@ -67,20 +118,24 @@ export function ProfilePage() {
             </div>
 
             <p className="mt-4 rounded-[var(--radius-input)] bg-paper-3 px-4 py-3 text-sm text-ink-2 lg:mt-6">
-              Tvoja puna adresa se nikad ne prikazuje javno.
+              {PRIVACY_LINES[0]}
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-2">
               {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="surface-card px-4 py-3 text-center shadow-none"
-                >
+                <div key={stat.label} className="surface-card px-4 py-3 text-center shadow-none">
                   <p className="font-display text-2xl font-semibold text-accent">{stat.value}</p>
                   <p className="text-xs font-medium text-muted">{stat.label}</p>
                 </div>
               ))}
             </div>
+
+            <Link
+              to="/boksusjed/impact"
+              className="mt-4 block rounded-[var(--radius-input)] border border-accent-soft bg-accent-soft/40 px-4 py-3 text-sm font-semibold text-accent-strong"
+            >
+              Vidi učinak u kvartu →
+            </Link>
           </div>
 
           <div className="mt-6 lg:col-span-3 lg:mt-0">
@@ -98,6 +153,53 @@ export function ProfilePage() {
                 </div>
               ))}
             </div>
+
+            <div className="surface-card mt-6 p-4 lg:p-6">
+              <h3 className="font-display font-semibold text-ink">Moja sigurnost i pristupačnost</h3>
+              <p className="mt-1 text-xs text-muted">{PRIVACY_LINES[1]}</p>
+              <div className="mt-4 space-y-2">
+                {prefToggles.map(({ key, label }) => (
+                  <ToggleRow
+                    key={key}
+                    label={label}
+                    checked={Boolean(profilePrefs[key])}
+                    onChange={(v) => updateProfilePrefs({ [key]: v })}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="surface-card mt-4 p-4 lg:p-6">
+              <h3 className="font-display font-semibold text-ink">Privatni profil potreba</h3>
+              <p className="mt-1 text-xs text-muted">Agregirano u demo verziji — bez javnih adresa.</p>
+              <div className="mt-4 space-y-2">
+                {needToggles.map(({ key, label }) => (
+                  <ToggleRow
+                    key={key}
+                    label={label}
+                    checked={Boolean(profilePrefs[key])}
+                    onChange={(v) => updateProfilePrefs({ [key]: v })}
+                  />
+                ))}
+              </div>
+              <div className="mt-4">
+                <label htmlFor="emergency-contact" className="field-label">
+                  Kontakt člana obitelji (demo)
+                </label>
+                <input
+                  id="emergency-contact"
+                  value={profilePrefs.emergencyContact}
+                  onChange={(e) => updateProfilePrefs({ emergencyContact: e.target.value })}
+                  placeholder="Samo za demo — ne sprema se stvarno"
+                  className="field-input"
+                />
+              </div>
+              <p className="mt-3 text-xs text-muted">{PRIVACY_DISCLAIMER}</p>
+            </div>
+
+            <p className="mt-4 rounded-[var(--radius-input)] bg-paper-3 px-4 py-3 text-xs text-ink-2">
+              {VALID_POSITIONING_COPY}
+            </p>
 
             <div className="surface-card mt-6 p-4 lg:p-6">
               <h3 className="font-display font-semibold text-ink">Pozovi susjeda</h3>

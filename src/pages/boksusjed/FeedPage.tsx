@@ -8,13 +8,14 @@ import { AnimatedList, AnimatedListItem } from '../../components/boksusjed/Anima
 import { InviteCta, OnboardingBanner, TrustBanner, WarmCrossLink } from '../../components/boksusjed/Banners';
 import { EmptyState } from '../../components/boksusjed/EmptyState';
 import { FilterPills } from '../../components/boksusjed/FilterPills';
+import { ModulePromoCards } from '../../components/boksusjed/ModulePromoCards';
 import { PageLayout } from '../../components/boksusjed/PageLayout';
 import { PageHeader } from '../../components/boksusjed/PageHeader';
 import { PostCard } from '../../components/boksusjed/PostCard';
 import { LocationChip, SearchBar } from '../../components/boksusjed/SearchBar';
 
 export function FeedPage() {
-  const { posts } = useBoksusjed();
+  const { posts, helpTasks, resilienceAlerts } = useBoksusjed();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<FeedFilter>('all');
   const [showOnboarding, setShowOnboarding] = useState(true);
@@ -49,6 +50,11 @@ export function FeedPage() {
         <SearchBar value={search} onChange={setSearch} />
 
         <OnboardingBanner visible={showOnboarding} onDismiss={() => setShowOnboarding(false)} />
+
+        <ModulePromoCards
+          alertCount={resilienceAlerts.filter((a) => a.status !== 'resolved').length}
+          openTasks={helpTasks.filter((t) => t.status === 'open').length}
+        />
 
         <div className="mobile-only space-y-4">
           <TrustBanner />
