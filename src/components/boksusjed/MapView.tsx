@@ -3,7 +3,8 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Crosshair, SlidersHorizontal } from 'lucide-react';
 import type { MapFilter, MapPin as MapPinType } from '../../types/boksusjed';
 import { useBoksusjed } from '../../context/BoksusjedContext';
-import { MAP_FILTERS, matchesMapFilter, POST_TYPE_STYLES } from '../../utils/postHelpers';
+import { MAP_FILTERS, matchesMapFilter } from '../../utils/postHelpers';
+import { PostTypeIconBadge } from './PostTypeIconBadge';
 import { formatDistance } from '../../utils/formatTime';
 import { postsToMapPins } from '../../utils/mapPins';
 import { collapseTransition, easeOut, motionDuration } from '../../utils/motion';
@@ -35,8 +36,6 @@ function NearbyList({
         ) : (
           <AnimatePresence mode="popLayout">
             {filteredPins.map((pin) => {
-              const style = POST_TYPE_STYLES[pin.type];
-              const Icon = style.icon;
               const isSelected = selectedPin?.id === pin.id;
 
               return (
@@ -53,9 +52,7 @@ function NearbyList({
                     isSelected ? 'bg-emerald-50 ring-1 ring-emerald-200' : 'hover:bg-slate-50'
                   }`}
                 >
-                  <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${style.bg} ${style.accent}`}>
-                    <Icon className="h-4 w-4" />
-                  </span>
+                  <PostTypeIconBadge type={pin.type} size="list" selected={isSelected} />
                   <span className="flex-1 text-sm font-medium text-slate-800">{pin.title}</span>
                   <span className="text-xs font-semibold text-brand-600">
                     {formatDistance(pin.distanceMeters)}

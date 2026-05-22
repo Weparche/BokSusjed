@@ -8,38 +8,50 @@ import {
   useMap,
   useMapEvents,
 } from 'react-leaflet';
-import { divIcon, type LatLngExpression } from 'leaflet';
+import { divIcon, latLngBounds, type LatLngExpression } from 'leaflet';
 import { mapCenter } from '../../data/boksusjedMock';
 import type { MapPin as MapPinType } from '../../types/boksusjed';
 import type { GeoPoint } from '../../utils/geo';
 import { POST_TYPE_STYLES } from '../../utils/postHelpers';
-import { PIN_COLORS } from '../../utils/mapPinColors';
+import { createMapPinDivIcon } from '../../utils/mapPinIconHtml';
 import { formatDistance } from '../../utils/formatTime';
 
 function createPinIcon(type: MapPinType['type'], selected: boolean) {
-  const colors = PIN_COLORS[type];
-  const size = selected ? 40 : 34;
-
+  const icon = createMapPinDivIcon(type, selected);
   return divIcon({
     className: '',
-    html: `
-      <div style="
-        width:${size}px;height:${size}px;
-        background:${colors.bg};
-        border:2.5px solid ${selected ? '#16a34a' : colors.border};
-        border-radius:9999px;
-        box-shadow:0 4px 14px rgba(15,23,42,${selected ? '0.22' : '0.14'});
-        display:flex;align-items:center;justify-content:center;
-        transform:translate(-50%,-100%);
-        ${selected ? 'scale:1.1;' : ''}
-      ">
-        <span style="width:10px;height:10px;border-radius:9999px;background:${colors.border};"></span>
-      </div>
-    `,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size],
-    popupAnchor: [0, -size],
+    html: icon.html,
+    iconSize: icon.iconSize,
+    iconAnchor: icon.iconAnchor,
+    popupAnchor: icon.popupAnchor,
   });
+}
+
+function PinsBoundsHandler({ pins }: { pins: MapPinType[] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    const fitToPins = () => {
+      map.invalidateSize();
+
+      if (pins.length === 0) {
+        map.setView([mapCenter.lat, mapCenter.lng], mapCenter.zoom);
+        return;
+      }
+      if (pins.length === 1) {
+        map.setView([pins[0]!.lat, pins[0]!.lng], 16);
+        return;
+      }
+      const bounds = latLngBounds(pins.map((pin) => [pin.lat, pin.lng] as [number, number]));
+      map.fitBounds(bounds, { padding: [48, 48], maxZoom: 16 });
+    };
+
+    fitToPins();
+    const timer = window.setTimeout(fitToPins, 150);
+    return () => window.clearTimeout(timer);
+  }, [pins, map]);
+
+  return null;
 }
 
 const pickerIcon = divIcon({
@@ -135,9 +147,7 @@ export function LeafletMap({
   className = 'h-full w-full rounded-[1.75rem] z-0',
   zoom = mapCenter.zoom,
 }: LeafletMapProps) {
-  const center: LatLngExpression = userLocation
-    ? [userLocation.lat, userLocation.lng]
-    : [mapCenter.lat, mapCenter.lng];
+  const center: LatLngExpression = [mapCenter.lat, mapCenter.lng];
 
   function PickerClickHandler() {
     useMapEvents({
@@ -163,6 +173,8 @@ export function LeafletMap({
 
       <MapResizeHandler />
 
+      {!pickerMode && <PinsBoundsHandler pins={pins} />}
+
       <MapController
         selectedPin={selectedPin}
         flyToCenter={flyToCenter}
@@ -173,10 +185,10 @@ export function LeafletMap({
 
       {pickerMode && <PickerClickHandler />}
 
-      {(userLocation ?? (!pickerMode ? { lat: mapCenter.lat, lng: mapCenter.lng } : null)) && (
+      {userLocation && !pickerMode && (
         <CircleMarker
-          center={userLocation ? [userLocation.lat, userLocation.lng] : center}
-          radius={pickerMode ? 8 : 10}
+          center={[userLocation.lat, userLocation.lng]}
+          radius={10}
           pathOptions={{
             color: '#ffffff',
             weight: 3,
