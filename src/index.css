@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-surface: #f8fafc;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e5e7eb;
+  --radius-card: 1.5rem;
+  --radius-pill: 9999px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-900;
+    margin: 0;
+    min-height: 100dvh;
+  }
+
+  #root {
+    min-height: 100dvh;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand-600) 20%, white);
+  }
+}
+
+@layer utilities {
+  .desktop-shell {
+    @apply max-w-[1440px] lg:border-x lg:border-slate-200/60 lg:bg-[#F8FAFC]/80 lg:shadow-xl;
+  }
+
+  .app-shell {
+    @apply mx-auto flex min-h-dvh w-full max-w-md flex-col bg-[#F8FAFC] shadow-xl md:max-w-lg;
+  }
+
+  .page-container {
+    @apply mx-auto w-full max-w-3xl xl:max-w-none;
+  }
+
+  .card-grid {
+    @apply space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-2;
+  }
+
+  .card-grid-single {
+    @apply space-y-3 lg:max-w-2xl lg:space-y-4;
+  }
+
+  .mobile-only {
+    @apply lg:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tap-scale {
+    @apply transition-transform active:scale-[0.98];
+  }
+
+  .leaflet-container {
+    font-family: var(--font-sans);
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  }
+
+  .leaflet-popup-content {
+    margin: 12px 14px;
+  }
+}
