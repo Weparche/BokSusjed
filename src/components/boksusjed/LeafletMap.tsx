@@ -218,11 +218,11 @@ export function LeafletMap({
             >
               <Popup className="boksusjed-popup">
                 <div className="min-w-[160px]">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted">
                     {style.label}
                   </p>
-                  <p className="mt-1 font-bold text-slate-900">{pin.title}</p>
-                  <p className="mt-1 text-xs font-medium text-brand-600">
+                  <p className="mt-1 font-display font-semibold text-ink">{pin.title}</p>
+                  <p className="mt-1 text-xs font-medium text-accent">
                     {formatDistance(pin.distanceMeters)}
                   </p>
                 </div>

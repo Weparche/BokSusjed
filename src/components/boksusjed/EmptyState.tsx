@@ -16,18 +16,18 @@ export function EmptyState({ icon: Icon, title, description }: EmptyStateProps) 
       initial={reduced ? { opacity: 0 } : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: motionDuration(!!reduced, 300), ease: easeOut }}
-      className="flex flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-slate-200 bg-white px-6 py-12 text-center"
+      className="flex flex-col items-center justify-center rounded-[var(--radius-card)] border border-dashed border-rule bg-paper-2 px-6 py-12 text-center"
     >
       <motion.span
         initial={reduced ? false : { opacity: 0, scale: 0.88 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: reduced ? 0 : 0.08, duration: motionDuration(!!reduced, 320), ease: easeOut }}
-        className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"
+        className="mb-4 flex h-14 w-14 items-center justify-center rounded-[var(--radius-card)] bg-paper-3 text-muted"
       >
         <Icon className="h-7 w-7" />
       </motion.span>
-      <h3 className="text-base font-semibold text-slate-800">{title}</h3>
-      {description && <p className="mt-2 max-w-xs text-sm text-slate-500">{description}</p>}
+      <h3 className="font-display text-base font-semibold text-ink">{title}</h3>
+      {description && <p className="mt-2 max-w-xs text-sm text-muted">{description}</p>}
     </motion.div>
   );
 }

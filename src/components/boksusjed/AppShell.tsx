@@ -10,12 +10,11 @@ export function AppShell() {
   const transition = pageTransition(!!reduced);
 
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-slate-100 via-emerald-50/30 to-sky-50/40">
+    <div className="min-h-dvh bg-paper">
       <div className="desktop-shell mx-auto flex min-h-dvh w-full">
         <SidebarNav />
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          {/* Enter-only fade: AnimatePresence mode="wait" caused blank screens on route change */}
           <motion.div
             key={location.pathname}
             initial={reduced ? false : { opacity: 0 }}

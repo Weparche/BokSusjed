@@ -21,12 +21,12 @@ export function OnboardingBanner({ visible, onDismiss }: OnboardingBannerProps) 
           transition={collapseTransition(!!reduced)}
           className="overflow-hidden"
         >
-          <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-brand-600 to-emerald-700 p-4 text-white shadow-lg shadow-emerald-900/10">
+          <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-accent-soft bg-accent p-4 text-accent-ink shadow-[var(--shadow-card)]">
             {onDismiss && (
               <button
                 type="button"
                 onClick={onDismiss}
-                className="absolute right-3 top-3 rounded-full p-1 text-white/70 hover:bg-white/10 hover:text-white"
+                className="absolute right-3 top-3 rounded-full p-1 text-accent-ink/70 hover:bg-accent-strong/20 hover:text-accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
                 aria-label="Zatvori"
               >
                 <X className="h-4 w-4" />
@@ -37,13 +37,13 @@ export function OnboardingBanner({ visible, onDismiss }: OnboardingBannerProps) 
                 initial={reduced ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: reduced ? 0 : 0.1, duration: 0.25, ease: easeOut }}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-btn)] bg-accent-ink/15"
               >
                 <Sparkles className="h-5 w-5" />
               </motion.span>
               <div>
-                <p className="font-bold">Dobrodošao u Trešnjevku 👋</p>
-                <p className="mt-1 text-sm text-emerald-50/90">
+                <p className="font-display font-semibold">Dobrodošao u Trešnjevku 👋</p>
+                <p className="mt-1 text-sm text-accent-ink/85">
                   Ovdje susjedi dijele preporuke, obavijesti i male usluge.
                 </p>
               </div>
@@ -57,9 +57,9 @@ export function OnboardingBanner({ visible, onDismiss }: OnboardingBannerProps) 
 
 export function TrustBanner() {
   return (
-    <div className="flex items-start gap-3 rounded-[1.25rem] border border-sky-100 bg-sky-50/80 px-4 py-3">
-      <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" />
-      <p className="text-sm text-sky-900">
+    <div className="flex items-start gap-3 rounded-[var(--radius-card)] border border-trust bg-trust px-4 py-3">
+      <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-trust-ink" />
+      <p className="text-sm text-trust-ink">
         <span className="font-semibold">Privatno i sigurno:</span> puna adresa nije javno vidljiva.
       </p>
     </div>
@@ -70,29 +70,51 @@ export function InviteCta() {
   return (
     <Link
       to="/boksusjed/profil"
-      className="tap-scale flex items-center justify-between rounded-[1.25rem] border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
+      className="tap-scale surface-card surface-card-hover flex items-center justify-between px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
     >
       <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-brand-600">
+        <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-btn)] bg-accent-soft text-accent">
           <UserPlus className="h-4 w-4" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-slate-800">Pozovi susjeda</p>
-          <p className="text-xs text-slate-500">Samo tvoj kvart</p>
+          <p className="text-sm font-semibold text-ink">Pozovi susjeda</p>
+          <p className="text-xs text-muted">Samo tvoj kvart</p>
         </div>
       </div>
-      <span className="text-xs font-semibold text-brand-600">Pozovi →</span>
+      <span className="text-xs font-semibold text-accent">Pozovi →</span>
     </Link>
   );
 }
 
 export function HelpInfoBanner() {
   return (
-    <div className="rounded-[1.5rem] border border-emerald-100 bg-gradient-to-r from-emerald-50 to-teal-50 p-4">
-      <p className="font-bold text-emerald-900">Pomažemo s povjerenjem 💚</p>
-      <p className="mt-1 text-sm text-emerald-800/80">
+    <div className="rounded-[var(--radius-card)] border border-accent-soft bg-accent-soft/60 p-4">
+      <p className="font-display font-semibold text-accent-strong">Pomažemo s povjerenjem 💚</p>
+      <p className="mt-1 text-sm text-ink-2">
         Svi korisnici su iz tvoje četvrti. Ljubaznost je naša supermoć!
       </p>
     </div>
+  );
+}
+
+export function WarmCrossLink({
+  to,
+  title,
+  description,
+  className = '',
+}: {
+  to: string;
+  title: string;
+  description: string;
+  className?: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className={`tap-scale warm-panel block rounded-[var(--radius-card)] px-4 py-3 text-sm font-semibold transition hover:shadow-[var(--shadow-card)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${className}`}
+    >
+      {title}
+      <span className="mt-1 block text-xs font-normal opacity-85">{description}</span>
+    </Link>
   );
 }

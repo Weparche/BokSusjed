@@ -55,17 +55,17 @@ export function RecommendationsPage() {
                 type="button"
                 onClick={() => setCategory(cat.id)}
                 className={`relative inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                  isActive ? 'text-white' : 'text-slate-600 hover:text-slate-800'
+                  isActive ? 'text-accent-ink' : 'text-ink-2 hover:text-ink'
                 }`}
               >
                 {isActive ? (
                   <motion.span
                     layoutId="serviceCategoryPill"
-                    className="absolute inset-0 rounded-full bg-brand-600 shadow-md"
+                    className="absolute inset-0 rounded-full bg-accent shadow-[var(--shadow-card)]"
                     transition={transition}
                   />
                 ) : (
-                  <span className="absolute inset-0 rounded-full border border-slate-200 bg-white" />
+                  <span className="absolute inset-0 rounded-full border border-rule bg-paper-2" />
                 )}
                 <span className="relative z-10 inline-flex items-center gap-1.5">
                   <Icon className="h-4 w-4" />
@@ -76,7 +76,7 @@ export function RecommendationsPage() {
           })}
         </div>
 
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted">
           Preporučili susjedi
         </p>
       </div>

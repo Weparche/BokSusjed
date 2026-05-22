@@ -17,12 +17,12 @@ const categoryIcons = {
   ljubimci: Star,
 };
 
-const categoryColors = {
-  majstori: 'from-sky-400 to-blue-500',
-  hrana: 'from-orange-400 to-amber-500',
-  djeca: 'from-violet-400 to-purple-500',
-  ljepota: 'from-pink-400 to-rose-500',
-  ljubimci: 'from-amber-400 to-yellow-500',
+const categorySurfaces = {
+  majstori: 'bg-trust text-trust-ink',
+  hrana: 'bg-warm text-warm-ink',
+  djeca: 'bg-paper-3 text-ink',
+  ljepota: 'bg-accent-soft text-accent-strong',
+  ljubimci: 'bg-warm text-warm-ink',
 };
 
 export function ServiceCard({ service }: ServiceCardProps) {
@@ -38,43 +38,43 @@ export function ServiceCard({ service }: ServiceCardProps) {
   }, []);
 
   const Icon = categoryIcons[service.category];
-  const gradient = categoryColors[service.category];
+  const surface = categorySurfaces[service.category];
 
   return (
     <motion.article
       whileHover={
         canHover && !reduced
-          ? { y: -2, boxShadow: '0 8px 24px -8px rgba(15, 23, 42, 0.12)' }
+          ? { y: -2, boxShadow: 'var(--shadow-lift)' }
           : undefined
       }
       transition={{ duration: motionDuration(!!reduced, 200) }}
-      className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm md:transition-shadow"
+      className="surface-card surface-card-hover p-4 md:transition-shadow"
     >
       <div className="flex gap-3">
         <span
-          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-sm ${gradient}`}
+          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-card)] ${surface}`}
         >
-          <Icon className="h-6 w-6" />
+          <Icon className="h-6 w-6" strokeWidth={2.25} />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <h3 className="font-bold text-slate-900">{service.name}</h3>
-              <p className="text-xs font-medium text-brand-600">
+              <h3 className="font-display font-semibold text-ink">{service.name}</h3>
+              <p className="text-xs font-medium text-accent">
                 Preporučilo {service.recommendedByCount} susjeda
               </p>
             </div>
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+            <span className="rounded-full bg-paper-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted">
               {SERVICE_CATEGORY_LABELS[service.category]}
             </span>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{service.description}</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink-2">{service.description}</p>
 
           <div className="mt-3 flex flex-wrap gap-1.5">
             {service.badges.map((badge) => (
               <span
                 key={badge}
-                className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700"
+                className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-semibold text-accent-strong"
               >
                 {badge}
               </span>
@@ -85,7 +85,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
             {service.phone && (
               <a
                 href={`tel:${service.phone.replace(/\s/g, '')}`}
-                className="tap-scale inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-600 px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700"
+                className="btn-primary tap-scale flex-1 px-3 py-2.5 text-sm"
               >
                 <Phone className="h-4 w-4" />
                 Nazovi
@@ -96,7 +96,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
                 href={`https://wa.me/${service.whatsapp.replace(/\D/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tap-scale inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+                className="btn-secondary tap-scale flex-1 border-accent-soft bg-accent-soft/50 px-3 py-2.5 text-sm text-accent-strong hover:bg-accent-soft"
               >
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp

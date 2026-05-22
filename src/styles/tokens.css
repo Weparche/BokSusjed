@@ -1,0 +1,54 @@
+/* Hallmark · genre: atmospheric · theme: Susjed (custom) · anchor: #16A34A · design-system: design.md · designed-as-app
+ * Display: Fraunces 600 · Body: Source Sans 3 · vibe: toplo susjedski
+ */
+
+:root {
+  --color-paper: oklch(0.975 0.014 145);
+  --color-paper-2: oklch(0.995 0.008 145);
+  --color-paper-3: oklch(0.948 0.022 145);
+  --color-ink: oklch(0.24 0.025 145);
+  --color-ink-2: oklch(0.38 0.02 145);
+  --color-muted: oklch(0.48 0.018 145);
+  --color-rule: oklch(0.88 0.012 145);
+  --color-rule-2: oklch(0.92 0.01 145);
+  --color-accent: oklch(0.627 0.17 145);
+  --color-accent-strong: oklch(0.52 0.17 145);
+  --color-accent-soft: oklch(0.94 0.04 145);
+  --color-accent-ink: oklch(0.99 0.005 145);
+  --color-warm: oklch(0.94 0.045 85);
+  --color-warm-ink: oklch(0.35 0.06 85);
+  --color-warm-border: oklch(0.86 0.04 85);
+  --color-focus: oklch(0.58 0.2 145);
+  --color-trust: oklch(0.92 0.035 230);
+  --color-trust-ink: oklch(0.35 0.06 230);
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 220ms;
+  --dur-micro: 150ms;
+
+  --radius-card: 1.125rem;
+  --radius-input: 0.75rem;
+  --radius-pill: 9999px;
+  --radius-btn: 0.625rem;
+
+  --shadow-card: 0 1px 2px oklch(0.24 0.025 145 / 0.04), 0 4px 16px oklch(0.24 0.025 145 / 0.06);
+  --shadow-lift: 0 8px 24px oklch(0.24 0.025 145 / 0.1);
+}

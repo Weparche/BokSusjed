@@ -1,0 +1,16 @@
+{
+  "runs": [
+    {
+      "scope": "app",
+      "date": "2026-05-22",
+      "genre": "atmospheric",
+      "theme": "Susjed (custom)",
+      "anchor": "#16A34A",
+      "macrostructure": "Community Workbench",
+      "designSystem": "design.md",
+      "display": "Fraunces 600",
+      "body": "Source Sans 3",
+      "vibe": "toplo susjedski"
+    }
+  ]
+}

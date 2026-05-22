@@ -45,7 +45,7 @@ export function HelpPage() {
           onChange={setFilter}
           layoutId="helpFilterPill"
         />
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted">
           Pomozi nekome blizu sebe
         </p>
       </div>

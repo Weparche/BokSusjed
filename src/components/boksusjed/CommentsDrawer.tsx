@@ -50,7 +50,7 @@ export function CommentsDrawer({ post, open, onClose }: CommentsDrawerProps) {
         <div className="fixed inset-0 z-[200] flex items-end justify-center sm:items-center sm:p-4">
           <motion.button
             type="button"
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
             onClick={onClose}
             aria-label="Zatvori"
             initial={{ opacity: 0 }}
@@ -62,7 +62,7 @@ export function CommentsDrawer({ post, open, onClose }: CommentsDrawerProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="comments-drawer-title"
-            className="relative z-10 flex max-h-[85dvh] w-full max-w-md flex-col rounded-t-[1.75rem] bg-white px-4 pb-8 pt-4 shadow-2xl sm:max-h-[min(85dvh,640px)] sm:rounded-[1.75rem]"
+            className="relative z-10 flex max-h-[85dvh] w-full max-w-md flex-col rounded-t-[var(--radius-card)] bg-paper-2 px-4 pb-8 pt-4 shadow-[var(--shadow-lift)] sm:max-h-[min(85dvh,640px)] sm:rounded-[var(--radius-card)]"
             initial={
               reduced
                 ? { opacity: 0 }
@@ -83,24 +83,24 @@ export function CommentsDrawer({ post, open, onClose }: CommentsDrawerProps) {
             transition={transition}
           >
             <div className="mb-4 flex shrink-0 items-center justify-between">
-              <h2 id="comments-drawer-title" className="text-lg font-bold text-slate-900">
+              <h2 id="comments-drawer-title" className="font-display text-lg font-semibold text-ink">
                 Komentari ({post.commentsCount})
               </h2>
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-full p-2 text-slate-400 hover:bg-slate-100"
+                className="rounded-full p-2 text-muted hover:bg-paper-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 aria-label="Zatvori"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <p className="mb-4 shrink-0 line-clamp-2 text-sm text-slate-500">{post.title}</p>
+            <p className="mb-4 shrink-0 line-clamp-2 text-sm text-muted">{post.title}</p>
 
             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain">
               {comments.length === 0 ? (
-                <p className="py-8 text-center text-sm text-slate-500">
+                <p className="py-8 text-center text-sm text-muted">
                   Još nema komentara. Budi prvi susjed koji će pomoći.
                 </p>
               ) : (
@@ -117,14 +117,14 @@ export function CommentsDrawer({ post, open, onClose }: CommentsDrawerProps) {
                     }}
                   >
                     <Avatar name={comment.author.name} size="sm" />
-                    <div className="min-w-0 flex-1 rounded-2xl bg-slate-50 px-3 py-2">
+                    <div className="min-w-0 flex-1 rounded-[var(--radius-input)] bg-paper-3 px-3 py-2">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-sm font-semibold text-slate-800">{comment.author.name}</span>
-                        <span className="shrink-0 text-xs text-slate-400">
+                        <span className="text-sm font-semibold text-ink">{comment.author.name}</span>
+                        <span className="shrink-0 text-xs text-muted">
                           {formatRelativeTime(comment.createdAt)}
                         </span>
                       </div>
-                      <p className="mt-0.5 text-sm text-slate-600">{comment.text}</p>
+                      <p className="mt-0.5 text-sm text-ink-2">{comment.text}</p>
                     </div>
                   </motion.div>
                 ))

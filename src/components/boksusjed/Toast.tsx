@@ -18,14 +18,14 @@ export function ToastContainer() {
             animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: motionDuration(!!reduced, 250), ease: easeOut }}
-            className="pointer-events-auto flex max-w-md items-center gap-3 rounded-2xl border border-emerald-200 bg-white px-4 py-3 shadow-xl shadow-emerald-900/10"
+            className="pointer-events-auto flex max-w-md items-center gap-3 rounded-[var(--radius-card)] border border-rule bg-paper-2 px-4 py-3 shadow-[var(--shadow-lift)]"
           >
-            <CheckCircle2 className="h-5 w-5 shrink-0 text-brand-600" />
-            <p className="flex-1 text-sm font-medium text-slate-800">{toast.message}</p>
+            <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" />
+            <p className="flex-1 text-sm font-medium text-ink">{toast.message}</p>
             <button
               type="button"
               onClick={() => dismissToast(toast.id)}
-              className="rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              className="rounded-full p-1 text-muted hover:bg-paper-3 hover:text-ink-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               aria-label="Zatvori"
             >
               <X className="h-4 w-4" />

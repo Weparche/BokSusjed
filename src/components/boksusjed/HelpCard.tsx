@@ -14,15 +14,15 @@ export function HelpCard({ post }: HelpCardProps) {
   const Icon = style.icon;
 
   return (
-    <article className={`rounded-[1.5rem] border bg-white p-4 shadow-sm ${style.border}`}>
+    <article className={`surface-card p-4 ${style.border}`}>
       <div className="mb-3 flex items-center gap-2.5">
         <Avatar name={post.author.name} size="sm" />
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-sm font-semibold text-slate-900">{post.author.name}</span>
+            <span className="text-sm font-semibold text-ink">{post.author.name}</span>
             <VerifiedBadge level={post.author.verifiedLevel} />
           </div>
-          <p className="text-xs text-slate-500">{formatRelativeTime(post.createdAt)}</p>
+          <p className="text-xs text-muted">{formatRelativeTime(post.createdAt)}</p>
         </div>
       </div>
 
@@ -31,11 +31,11 @@ export function HelpCard({ post }: HelpCardProps) {
         {style.label}
       </div>
 
-      <h3 className="text-base font-bold text-slate-900">{post.title}</h3>
-      <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{post.description}</p>
+      <h3 className="font-display text-base font-semibold text-ink">{post.title}</h3>
+      <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{post.description}</p>
 
       {post.tag && (
-        <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">
+        <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-paper-3 px-2.5 py-1 text-xs font-medium text-ink-2">
           <MapPin className="h-3 w-3" />
           {post.tag}
         </span>

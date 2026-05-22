@@ -58,7 +58,7 @@ export function CreatePostPage() {
 
       <form onSubmit={handleSubmit} className="page-container mx-auto max-w-2xl space-y-5 px-4 pt-3 lg:px-0 lg:pt-4">
         <div>
-          <p className="mb-2 text-sm font-semibold text-slate-700">Tip objave</p>
+          <p className="field-label">Tip objave</p>
           <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
             {CREATE_POST_TYPES.map((item) => {
               const Icon = item.icon;
@@ -68,18 +68,18 @@ export function CreatePostPage() {
                   key={item.type}
                   type="button"
                   onClick={() => setType(item.type)}
-                  className={`relative flex items-center gap-2 rounded-2xl px-3 py-3 text-left text-sm font-semibold transition-colors ${
-                    isActive ? 'text-brand-700' : 'text-slate-600 hover:text-slate-800'
+                  className={`relative flex items-center gap-2 rounded-[var(--radius-input)] px-3 py-3 text-left text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
+                    isActive ? 'text-accent-strong' : 'text-ink-2 hover:text-ink'
                   }`}
                 >
                   {isActive ? (
                     <motion.span
                       layoutId="postTypeActive"
-                      className="absolute inset-0 rounded-2xl border-2 border-brand-500 bg-emerald-50 ring-2 ring-brand-500/20"
+                      className="absolute inset-0 rounded-[var(--radius-input)] border-2 border-accent bg-accent-soft ring-2 ring-accent/20"
                       transition={transition}
                     />
                   ) : (
-                    <span className="absolute inset-0 rounded-2xl border border-slate-200 bg-white hover:border-slate-300" />
+                    <span className="absolute inset-0 rounded-[var(--radius-input)] border border-rule bg-paper-2 hover:border-rule-2" />
                   )}
                   <span className="relative z-10 flex items-center gap-2">
                     <Icon className="h-4 w-4 shrink-0" />
@@ -94,7 +94,7 @@ export function CreatePostPage() {
 
         <div className="lg:grid lg:grid-cols-2 lg:gap-5">
           <div className="lg:col-span-2">
-            <label htmlFor="title" className="mb-1.5 block text-sm font-semibold text-slate-700">
+            <label htmlFor="title" className="field-label">
               Naslov
             </label>
             <input
@@ -103,12 +103,12 @@ export function CreatePostPage() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Kratko i jasno..."
               required
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+              className="field-input"
             />
           </div>
 
           <div className="lg:col-span-2">
-            <label htmlFor="description" className="mb-1.5 block text-sm font-semibold text-slate-700">
+            <label htmlFor="description" className="field-label">
               Opis
             </label>
             <textarea
@@ -118,12 +118,12 @@ export function CreatePostPage() {
               placeholder="Opiši što susjedi trebaju znati..."
               required
               rows={4}
-              className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 lg:min-h-[140px]"
+              className="field-input resize-none lg:min-h-[140px]"
             />
           </div>
 
           <div>
-            <label htmlFor="tag" className="mb-1.5 block text-sm font-semibold text-slate-700">
+            <label htmlFor="tag" className="field-label">
               Kategorija
             </label>
             <input
@@ -131,24 +131,19 @@ export function CreatePostPage() {
               value={tag}
               onChange={(e) => setTag(e.target.value)}
               placeholder="npr. Majstori"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+              className="field-input"
             />
           </div>
 
           <div>
-            <label htmlFor="neighborhood" className="mb-1.5 block text-sm font-semibold text-slate-700">
+            <label htmlFor="neighborhood" className="field-label">
               Kvart
             </label>
-            <input
-              id="neighborhood"
-              value={neighborhood.name}
-              readOnly
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600"
-            />
+            <input id="neighborhood" value={neighborhood.name} readOnly className="field-input" />
           </div>
 
           <div className="lg:col-span-2">
-            <label htmlFor="location" className="mb-1.5 block text-sm font-semibold text-slate-700">
+            <label htmlFor="location" className="field-label">
               Opis lokacije (opcionalno)
             </label>
             <input
@@ -156,7 +151,7 @@ export function CreatePostPage() {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="npr. Ulica grada Vukovara — bez broja kuće"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+              className="field-input"
             />
           </div>
 
@@ -171,7 +166,7 @@ export function CreatePostPage() {
           whileTap={reduced || submitting ? undefined : { scale: 0.98 }}
           animate={submitting && !reduced ? { scale: [1, 0.98, 1] } : { scale: 1 }}
           transition={{ duration: motionDuration(!!reduced, 180), ease: easeOut }}
-          className="w-full rounded-2xl bg-brand-600 py-4 text-base font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50 lg:max-w-md"
+          className="btn-primary tap-scale w-full py-4 text-base disabled:cursor-not-allowed disabled:opacity-50 lg:max-w-md"
         >
           {submitting ? 'Objavljujem...' : 'Objavi u kvartu'}
         </motion.button>

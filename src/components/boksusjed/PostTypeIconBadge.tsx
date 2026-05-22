@@ -30,7 +30,7 @@ export function PostTypeIconBadge({
   return (
     <span
       className={`flex shrink-0 items-center justify-center rounded-lg ${style.bg} ${style.accent} ${boxClass} ${
-        selected ? 'ring-2 ring-brand-600 ring-offset-1' : ''
+        selected ? 'ring-2 ring-accent ring-offset-1' : ''
       } ${className}`}
     >
       <Icon className={iconClass} strokeWidth={2.5} />

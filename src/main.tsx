@@ -17,4 +17,12 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
-registerSW({ immediate: true });
+if (import.meta.env.DEV && 'serviceWorker' in navigator) {
+  void navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => void registration.unregister());
+  });
+}
+
+if (import.meta.env.PROD) {
+  registerSW({ immediate: true });
+}

@@ -14,19 +14,19 @@ export function SidebarNav() {
   const transition = pillTransition(!!reduced);
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-slate-200/80 bg-white/90 px-4 py-6 backdrop-blur-md lg:flex">
+    <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-rule bg-paper-2/95 px-4 py-6 backdrop-blur-md lg:flex">
       <div className="mb-6 flex items-center gap-3 px-2">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-base font-bold text-white shadow-md shadow-emerald-500/20">
+        <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-btn)] bg-accent font-display text-base font-bold text-accent-ink">
           B
         </span>
         <div>
-          <p className="text-lg font-extrabold tracking-tight text-slate-900">BokSusjed</p>
-          <p className="text-xs text-slate-500">Samo tvoj kvart</p>
+          <p className="font-display text-lg font-semibold tracking-tight text-ink">BokSusjed</p>
+          <p className="text-xs text-muted">Samo tvoj kvart</p>
         </div>
       </div>
 
       <div className="mb-6 px-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-soft bg-accent-soft px-3 py-1.5 text-xs font-semibold text-accent-strong">
           <MapPin className="h-3.5 w-3.5" />
           {neighborhood.name}
         </span>
@@ -38,22 +38,22 @@ export function SidebarNav() {
             key={item.to}
             to={item.to}
             end={item.end}
-            className="relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors"
+            className="relative flex items-center gap-3 rounded-[var(--radius-input)] px-3 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {({ isActive }) => (
               <>
                 {isActive && (
                   <motion.span
                     layoutId="sidebarNavActive"
-                    className="absolute inset-0 rounded-xl bg-emerald-50 ring-1 ring-emerald-100"
+                    className="absolute inset-0 rounded-[var(--radius-input)] bg-accent-soft ring-1 ring-accent-soft"
                     transition={transition}
                   />
                 )}
                 <item.icon
-                  className={`relative z-10 h-5 w-5 ${isActive ? 'text-brand-600' : 'text-slate-400'}`}
+                  className={`relative z-10 h-5 w-5 ${isActive ? 'text-accent' : 'text-muted'}`}
                   strokeWidth={isActive ? 2.5 : 2}
                 />
-                <span className={`relative z-10 ${isActive ? 'text-brand-700' : 'text-slate-600'}`}>
+                <span className={`relative z-10 ${isActive ? 'text-accent-strong' : 'text-ink-2'}`}>
                   {item.label}
                 </span>
               </>
@@ -64,7 +64,7 @@ export function SidebarNav() {
 
       <NavLink
         to={createNavItem.to}
-        className="mb-6 mt-2 flex items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:bg-brand-700"
+        className="btn-primary mb-6 mt-2 px-4 py-3.5 text-sm"
       >
         <createNavItem.icon className="h-5 w-5" strokeWidth={2.5} />
         {createNavItem.label}
@@ -72,11 +72,11 @@ export function SidebarNav() {
 
       <NavLink
         to="/boksusjed/profil"
-        className="mt-auto flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 p-3 transition hover:border-emerald-200 hover:bg-emerald-50/50"
+        className="mt-auto flex items-center gap-3 rounded-[var(--radius-card)] border border-rule bg-paper-3 p-3 transition hover:border-accent-soft hover:bg-accent-soft/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
       >
         <Avatar name={currentUser.name} size="sm" />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-slate-900">{currentUser.name}</p>
+          <p className="truncate text-sm font-semibold text-ink">{currentUser.name}</p>
           <VerifiedBadge level={currentUser.verifiedLevel} />
         </div>
       </NavLink>

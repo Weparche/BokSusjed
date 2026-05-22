@@ -26,18 +26,18 @@ export function FilterPills<T extends string>({
             key={item.id}
             type="button"
             onClick={() => onChange(item.id)}
-            className={`relative shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-              isActive ? 'text-white' : 'text-slate-600 hover:text-slate-800'
+            className={`relative shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
+              isActive ? 'text-accent-ink' : 'text-ink-2 hover:text-ink'
             }`}
           >
             {isActive ? (
               <motion.span
                 layoutId={layoutId}
-                className="absolute inset-0 rounded-full bg-brand-600 shadow-md shadow-emerald-500/20"
+                className="absolute inset-0 rounded-full bg-accent shadow-[var(--shadow-card)]"
                 transition={transition}
               />
             ) : (
-              <span className="absolute inset-0 rounded-full border border-slate-200 bg-white" />
+              <span className="absolute inset-0 rounded-full border border-rule bg-paper-2" />
             )}
             <span className="relative z-10">{item.label}</span>
           </button>

@@ -12,7 +12,7 @@ export function VerifiedBadge({ level, size = 'sm' }: VerifiedBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full bg-emerald-50 font-semibold text-emerald-700 ${
+      className={`inline-flex items-center gap-1 rounded-full bg-accent-soft font-semibold text-accent-strong ${
         size === 'sm' ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs'
       }`}
     >

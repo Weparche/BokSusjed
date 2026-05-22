@@ -1,4 +1,4 @@
-import { getAvatarGradient, getInitials } from '../../utils/postHelpers';
+import { getInitials } from '../../utils/postHelpers';
 
 interface AvatarProps {
   name: string;
@@ -14,7 +14,7 @@ const sizeClasses = {
 export function Avatar({ name, size = 'md' }: AvatarProps) {
   return (
     <span
-      className={`inline-flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br font-bold text-white shadow-sm ${getAvatarGradient(name)} ${sizeClasses[size]}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded-full bg-accent-soft font-semibold text-accent-strong ring-1 ring-accent-soft ${sizeClasses[size]}`}
       aria-hidden
     >
       {getInitials(name)}

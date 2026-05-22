@@ -45,26 +45,28 @@ export function ProfilePage() {
       <div className="page-container px-4 pt-2 lg:px-0 lg:pt-4">
         <div className="lg:grid lg:grid-cols-5 lg:gap-6">
           <div className="lg:col-span-2">
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm lg:p-6">
+            <div className="surface-card p-5 lg:p-6">
               <div className="flex items-center gap-4">
                 <Avatar name={currentUser.name} size="lg" />
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900 lg:text-2xl">{currentUser.name}</h2>
-                  <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
+                  <h2 className="font-display text-xl font-semibold text-ink lg:text-2xl">
+                    {currentUser.name}
+                  </h2>
+                  <div className="mt-1 flex items-center gap-1 text-sm text-muted">
                     <MapPin className="h-3.5 w-3.5" />
                     {currentUser.neighborhood}
                   </div>
                   <div className="mt-2">
                     <VerifiedBadge level={currentUser.verifiedLevel} size="md" />
                   </div>
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-xs text-muted">
                     {VERIFIED_LABELS[currentUser.verifiedLevel]}
                   </p>
                 </div>
               </div>
             </div>
 
-            <p className="mt-4 rounded-2xl bg-slate-100 px-4 py-3 text-sm text-slate-600 lg:mt-6">
+            <p className="mt-4 rounded-[var(--radius-input)] bg-paper-3 px-4 py-3 text-sm text-ink-2 lg:mt-6">
               Tvoja puna adresa se nikad ne prikazuje javno.
             </p>
 
@@ -72,10 +74,10 @@ export function ProfilePage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-center shadow-sm"
+                  className="surface-card px-4 py-3 text-center shadow-none"
                 >
-                  <p className="text-2xl font-extrabold text-brand-600">{stat.value}</p>
-                  <p className="text-xs font-medium text-slate-500">{stat.label}</p>
+                  <p className="font-display text-2xl font-semibold text-accent">{stat.value}</p>
+                  <p className="text-xs font-medium text-muted">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -86,27 +88,27 @@ export function ProfilePage() {
               {verificationCards.map((card) => (
                 <div
                   key={card.label}
-                  className="flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3"
+                  className="flex items-center gap-3 rounded-[var(--radius-input)] border border-accent-soft bg-accent-soft/50 px-4 py-3"
                 >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-brand-600 shadow-sm">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-btn)] bg-paper-2 text-accent shadow-[var(--shadow-card)]">
                     <card.icon className="h-4 w-4" />
                   </span>
-                  <span className="flex-1 text-sm font-semibold text-slate-800">{card.label}</span>
-                  {card.done && <Check className="h-5 w-5 text-brand-600" />}
+                  <span className="flex-1 text-sm font-semibold text-ink">{card.label}</span>
+                  {card.done && <Check className="h-5 w-5 text-accent" />}
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm lg:p-6">
-              <h3 className="font-bold text-slate-900">Pozovi susjeda</h3>
-              <p className="mt-1 text-sm text-slate-500">
+            <div className="surface-card mt-6 p-4 lg:p-6">
+              <h3 className="font-display font-semibold text-ink">Pozovi susjeda</h3>
+              <p className="mt-1 text-sm text-muted">
                 Podijeli pozivnicu i proširi kvartovsku mrežu povjerenja.
               </p>
               <motion.button
                 type="button"
                 onClick={handleCopyInvite}
                 whileTap={reduced ? undefined : { scale: 0.98 }}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3 text-sm font-bold text-white shadow-md hover:bg-brand-700 lg:max-w-sm"
+                className="btn-primary tap-scale mt-4 w-full px-4 py-3 text-sm lg:max-w-sm"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {copied ? (

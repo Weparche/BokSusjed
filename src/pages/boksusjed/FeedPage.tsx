@@ -1,12 +1,11 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Inbox, SearchX } from 'lucide-react';
 import { neighborhood } from '../../data/boksusjedMock';
 import type { FeedFilter } from '../../types/boksusjed';
 import { useBoksusjed } from '../../context/BoksusjedContext';
 import { FEED_FILTERS, matchesFeedFilter } from '../../utils/postHelpers';
 import { AnimatedList, AnimatedListItem } from '../../components/boksusjed/AnimatedList';
-import { InviteCta, OnboardingBanner, TrustBanner } from '../../components/boksusjed/Banners';
+import { InviteCta, OnboardingBanner, TrustBanner, WarmCrossLink } from '../../components/boksusjed/Banners';
 import { EmptyState } from '../../components/boksusjed/EmptyState';
 import { FilterPills } from '../../components/boksusjed/FilterPills';
 import { PageLayout } from '../../components/boksusjed/PageLayout';
@@ -56,7 +55,7 @@ export function FeedPage() {
         </div>
 
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
             Saznaj što se događa u kvartu
           </p>
           <FilterPills
@@ -67,12 +66,12 @@ export function FeedPage() {
           />
         </div>
 
-        <Link
+        <WarmCrossLink
           to="/boksusjed/preporuke"
-          className="mobile-only tap-scale block rounded-[1.25rem] border border-amber-100 bg-gradient-to-r from-amber-50 to-orange-50 px-4 py-3 text-sm font-semibold text-amber-900 hover:shadow-sm"
-        >
-          ⭐ Preporuke susjeda — usluge kojima vjerujemo →
-        </Link>
+          title="⭐ Preporuke susjeda — usluge kojima vjerujemo →"
+          description="Majstori, čuvanje djece, ljubimci..."
+          className="mobile-only"
+        />
 
         <div className="mobile-only">
           <InviteCta />

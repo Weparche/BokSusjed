@@ -29,25 +29,23 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <>
-      <article
-        className={`rounded-[1.5rem] border bg-white p-4 shadow-sm transition hover:shadow-md ${style.border}`}
-      >
+      <article className={`surface-card surface-card-hover p-4 ${style.border}`}>
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex items-center gap-2.5">
             <Avatar name={post.author.name} size="sm" />
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-sm font-semibold text-slate-900">{post.author.name}</span>
+                <span className="text-sm font-semibold text-ink">{post.author.name}</span>
                 <VerifiedBadge level={post.author.verifiedLevel} />
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted">
                 {formatRelativeTime(post.createdAt)} · {post.neighborhood}
               </p>
             </div>
           </div>
           <button
             type="button"
-            className="rounded-full p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="rounded-full p-1.5 text-muted hover:bg-paper-3 hover:text-ink-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             aria-label="Opcije"
           >
             <MoreHorizontal className="h-4 w-4" />
@@ -59,23 +57,23 @@ export function PostCard({ post }: PostCardProps) {
           {style.label}
         </div>
 
-        <h3 className="text-base font-bold leading-snug text-slate-900">{post.title}</h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{post.description}</p>
+        <h3 className="font-display text-base font-semibold leading-snug text-ink">{post.title}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{post.description}</p>
 
         {post.tag && (
-          <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">
+          <span className="mt-3 inline-flex items-center gap-1 rounded-full bg-paper-3 px-2.5 py-1 text-xs font-medium text-ink-2">
             <MapPin className="h-3 w-3" />
             {post.tag}
           </span>
         )}
 
-        <div className="mt-4 flex items-center gap-4 border-t border-slate-100 pt-3">
+        <div className="mt-4 flex items-center gap-4 border-t border-rule pt-3">
           <motion.button
             type="button"
             onClick={handleLike}
             whileTap={reduced ? undefined : { scale: 0.92 }}
-            className={`inline-flex items-center gap-1.5 text-sm font-medium transition ${
-              post.liked ? 'text-rose-500' : 'text-slate-500 hover:text-rose-500'
+            className={`inline-flex items-center gap-1.5 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
+              post.liked ? 'text-rose-600' : 'text-muted hover:text-rose-600'
             }`}
           >
             <motion.span
@@ -102,7 +100,7 @@ export function PostCard({ post }: PostCardProps) {
             type="button"
             onClick={() => setShowComments(true)}
             whileTap={reduced ? undefined : { scale: 0.92 }}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-brand-600"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             <MessageCircle className="h-4 w-4" />
             {post.commentsCount}

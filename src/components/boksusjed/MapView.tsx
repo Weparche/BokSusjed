@@ -29,10 +29,10 @@ function NearbyList({
 }) {
   return (
     <>
-      <h3 className="mb-3 text-sm font-bold text-slate-800 lg:text-base">U blizini</h3>
+      <h3 className="mb-3 text-sm font-bold text-ink lg:text-base">U blizini</h3>
       <div className="space-y-2 lg:max-h-[520px] lg:overflow-y-auto lg:pr-1">
         {filteredPins.length === 0 ? (
-          <p className="py-4 text-center text-sm text-slate-500">Nema pinova za odabrani filter.</p>
+          <p className="py-4 text-center text-sm text-muted">Nema pinova za odabrani filter.</p>
         ) : (
           <AnimatePresence mode="popLayout">
             {filteredPins.map((pin) => {
@@ -49,12 +49,12 @@ function NearbyList({
                   exit={reduced ? { opacity: 0 } : { opacity: 0, x: 10, height: 0, marginTop: 0 }}
                   transition={{ duration: motionDuration(!!reduced, 220), ease: easeOut }}
                   className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left ${
-                    isSelected ? 'bg-emerald-50 ring-1 ring-emerald-200' : 'hover:bg-slate-50'
+                    isSelected ? 'bg-accent-soft ring-1 ring-accent-soft' : 'hover:bg-paper-3'
                   }`}
                 >
                   <PostTypeIconBadge type={pin.type} size="list" selected={isSelected} />
-                  <span className="flex-1 text-sm font-medium text-slate-800">{pin.title}</span>
-                  <span className="text-xs font-semibold text-brand-600">
+                  <span className="flex-1 text-sm font-medium text-ink">{pin.title}</span>
+                  <span className="text-xs font-semibold text-accent">
                     {formatDistance(pin.distanceMeters)}
                   </span>
                 </motion.button>
@@ -90,7 +90,7 @@ export function MapView({ filter, onFilterChange }: MapViewProps) {
   return (
     <div className="relative flex flex-1 flex-col lg:flex-row lg:gap-6 lg:px-8 lg:pb-8">
       <div className="relative flex flex-1 flex-col lg:min-h-[560px]">
-        <div className="relative mx-4 mb-3 overflow-hidden rounded-[1.75rem] border border-slate-200 shadow-inner lg:mx-0 lg:mb-0 lg:h-full lg:flex-1">
+        <div className="relative mx-4 mb-3 overflow-hidden rounded-[var(--radius-card)] border border-rule shadow-[inset_0_1px_2px_oklch(0.24_0.025_145_/_0.04)] lg:mx-0 lg:mb-0 lg:h-full lg:flex-1">
           <div className="relative aspect-[4/5] min-h-[340px] w-full lg:aspect-auto lg:min-h-[560px] lg:h-full">
             <LeafletMap
               pins={filteredPins}
@@ -107,7 +107,7 @@ export function MapView({ filter, onFilterChange }: MapViewProps) {
               type="button"
               onClick={() => void handleLocate()}
               whileTap={reduced ? undefined : { scale: 0.92 }}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-rule bg-paper-2 text-ink-2 shadow-[var(--shadow-card)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               aria-label="Lociraj me"
               title="Moja lokacija"
             >
@@ -117,13 +117,10 @@ export function MapView({ filter, onFilterChange }: MapViewProps) {
               type="button"
               onClick={() => setShowFilters((v) => !v)}
               whileTap={reduced ? undefined : { scale: 0.92 }}
-              animate={{
-                backgroundColor: showFilters ? '#16a34a' : '#ffffff',
-                color: showFilters ? '#ffffff' : '#475569',
-              }}
-              transition={{ duration: 0.2 }}
-              className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-md lg:hidden ${
-                showFilters ? 'border-brand-500' : 'border-slate-200'
+              className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-[var(--shadow-card)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus lg:hidden ${
+                showFilters
+                  ? 'border-accent bg-accent text-accent-ink'
+                  : 'border-rule bg-paper-2 text-ink-2 hover:bg-paper-3'
               }`}
               aria-label="Filteri"
             >
@@ -152,7 +149,7 @@ export function MapView({ filter, onFilterChange }: MapViewProps) {
         </AnimatePresence>
       </div>
 
-      <div className="mx-4 rounded-t-[1.5rem] border border-b-0 border-slate-200 bg-white p-4 shadow-lg lg:hidden">
+      <div className="mx-4 rounded-t-[var(--radius-card)] border border-b-0 border-rule bg-paper-2 p-4 shadow-[var(--shadow-lift)] lg:hidden">
         <NearbyList
           filteredPins={filteredPins}
           selectedPin={selectedPin}
@@ -161,7 +158,7 @@ export function MapView({ filter, onFilterChange }: MapViewProps) {
         />
       </div>
 
-      <div className="hidden lg:flex lg:w-80 lg:shrink-0 lg:flex-col lg:rounded-[1.5rem] lg:border lg:border-slate-200 lg:bg-white lg:p-5 lg:shadow-sm">
+      <div className="hidden lg:flex lg:w-80 lg:shrink-0 lg:flex-col lg:rounded-[var(--radius-card)] lg:border lg:border-rule lg:bg-paper-2 lg:p-5 lg:shadow-[var(--shadow-card)]">
         <NearbyList
           filteredPins={filteredPins}
           selectedPin={selectedPin}
